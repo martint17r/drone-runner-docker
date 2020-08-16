@@ -21,6 +21,8 @@ import (
 	"github.com/docker/docker/api/types/network"
 	"github.com/docker/docker/api/types/volume"
 	"github.com/docker/docker/client"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Opts configures the Docker engine.
@@ -137,6 +139,8 @@ func (e *Docker) Destroy(ctx context.Context, specv runtime.Spec) error {
 
 // Run runs the pipeline step.
 func (e *Docker) Run(ctx context.Context, specv runtime.Spec, stepv runtime.Step, output io.Writer) (*runtime.State, error) {
+	logrus.Debugf("engine.Run: %#v", ctx)
+
 	spec := specv.(*Spec)
 	step := stepv.(*Step)
 
