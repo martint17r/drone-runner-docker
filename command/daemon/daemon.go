@@ -242,6 +242,7 @@ func (c *daemonCommand) run(*kingpin.ParseContext) error {
 			Infoln("polling the remote server")
 
 		poller.Poll(ctx, config.Runner.Capacity)
+		logrus.Debugln("poll goroutine exited")
 		return nil
 	})
 

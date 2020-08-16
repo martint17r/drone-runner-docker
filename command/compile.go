@@ -24,6 +24,7 @@ import (
 	"github.com/drone/runner-go/registry"
 	"github.com/drone/runner-go/secret"
 
+	"github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -43,6 +44,7 @@ type compileCommand struct {
 }
 
 func (c *compileCommand) run(*kingpin.ParseContext) error {
+	logrus.Infoln("compile.Run")
 	rawsource, err := ioutil.ReadAll(c.Source)
 	if err != nil {
 		return err
