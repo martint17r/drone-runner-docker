@@ -145,7 +145,7 @@ func (c *execCommand) run(*kingpin.ParseContext) error {
 		Stage:    c.Stage,
 		System:   c.System,
 	}
-	spec := comp.Compile(nocontext, args).(*engine.Spec)
+	spec := comp.Compile(context.Background(), args).(*engine.Spec)
 
 	// include only steps that are in the include list,
 	// if the list in non-empty.
@@ -197,7 +197,7 @@ func (c *execCommand) run(*kingpin.ParseContext) error {
 
 	// configures the pipeline timeout.
 	timeout := time.Duration(c.Repo.Timeout) * time.Minute
-	ctx, cancel := context.WithTimeout(nocontext, timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
 	// listen for operating system signals and cancel execution

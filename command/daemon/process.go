@@ -5,6 +5,8 @@
 package daemon
 
 import (
+	"context"
+
 	"github.com/drone-runners/drone-runner-docker/engine"
 	"github.com/drone-runners/drone-runner-docker/engine/compiler"
 	"github.com/drone-runners/drone-runner-docker/engine/linter"
@@ -123,7 +125,7 @@ func (c *processCommand) run(*kingpin.ParseContext) error {
 		).Exec,
 	}
 
-	err = runner.RunAccepted(nocontext, c.stage)
+	err = runner.RunAccepted(context.Background(), c.stage)
 	if err != nil {
 		// TODO should this return an error and fail the
 		// command? How does this impact Nomad?

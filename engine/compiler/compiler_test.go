@@ -27,8 +27,6 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
-var nocontext = context.Background()
-
 // dummy function that returns a non-random string for testing.
 // it is used in place of the random function.
 func notRandom() string {
@@ -118,7 +116,7 @@ func TestCompile_Secrets(t *testing.T) {
 		Secret:   secret.Static(nil),
 	}
 
-	ir := compiler.Compile(nocontext, args).(*engine.Spec)
+	ir := compiler.Compile(context.Background(), args).(*engine.Spec)
 	got := ir.Steps[0].Secrets
 	want := []*engine.Secret{
 		{
@@ -180,7 +178,7 @@ func testCompile(t *testing.T, source, golden string) *engine.Spec {
 		Secret:   secret.Static(nil),
 	}
 
-	got := compiler.Compile(nocontext, args)
+	got := compiler.Compile(context.Background(), args)
 
 	raw, err := ioutil.ReadFile(golden)
 	if err != nil {

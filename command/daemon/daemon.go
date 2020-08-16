@@ -34,9 +34,6 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 )
 
-// empty context.
-var nocontext = context.Background()
-
 type daemonCommand struct {
 	envfile string
 }
@@ -55,7 +52,7 @@ func (c *daemonCommand) run(*kingpin.ParseContext) error {
 	// setup the global logrus logger.
 	setupLogger(config)
 
-	ctx, cancel := context.WithCancel(nocontext)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	// listen for termination signals to gracefully shutdown

@@ -5,6 +5,7 @@
 package command
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -126,7 +127,7 @@ func (c *compileCommand) run(*kingpin.ParseContext) error {
 		Stage:    c.Stage,
 		System:   c.System,
 	}
-	spec := comp.Compile(nocontext, args)
+	spec := comp.Compile(context.Background(), args)
 
 	// encode the pipeline in json format and print to the
 	// console for inspection.

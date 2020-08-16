@@ -5,6 +5,7 @@
 package compiler
 
 import (
+	"context"
 	"testing"
 
 	"github.com/dchest/uniuri"
@@ -57,7 +58,7 @@ func TestClone(t *testing.T) {
 			},
 		},
 	}
-	got := c.Compile(nocontext, args).(*engine.Spec)
+	got := c.Compile(context.Background(), args).(*engine.Spec)
 	ignore := cmpopts.IgnoreFields(engine.Step{}, "Envs", "Labels")
 	if diff := cmp.Diff(got.Steps, want, ignore); len(diff) != 0 {
 		t.Errorf(diff)
@@ -79,7 +80,7 @@ func TestCloneDisable(t *testing.T) {
 		Manifest: &manifest.Manifest{},
 		Pipeline: &resource.Pipeline{Clone: manifest.Clone{Disable: true}},
 	}
-	got := c.Compile(nocontext, args).(*engine.Spec)
+	got := c.Compile(context.Background(), args).(*engine.Spec)
 	if len(got.Steps) != 0 {
 		t.Errorf("Expect no clone step added when disabled")
 	}
