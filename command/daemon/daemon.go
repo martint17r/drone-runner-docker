@@ -42,6 +42,7 @@ type daemonCommand struct {
 }
 
 func (c *daemonCommand) run(*kingpin.ParseContext) error {
+	logrus.Debugln("run")
 	// load environment variables from file.
 	godotenv.Load(c.envfile)
 
@@ -83,6 +84,7 @@ func (c *daemonCommand) run(*kingpin.ParseContext) error {
 	opts := engine.Opts{
 		HidePull: !config.Docker.Stream,
 	}
+	logrus.Debugln("new engine")
 	engine, err := engine.NewEnv(opts)
 	if err != nil {
 		logrus.WithError(err).
