@@ -88,6 +88,7 @@ func (c *daemonCommand) run(*kingpin.ParseContext) error {
 		logrus.WithError(err).
 			Fatalln("cannot load the docker engine")
 	}
+	logrus.Debugln("pinging the docker daemon")
 	for {
 		err := engine.Ping(ctx)
 		if err == context.Canceled {
