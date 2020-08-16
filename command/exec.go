@@ -61,6 +61,7 @@ type execCommand struct {
 }
 
 func (c *execCommand) run(*kingpin.ParseContext) error {
+	logrus.Infoln("run pipeline")
 	rawsource, err := ioutil.ReadAll(c.Source)
 	if err != nil {
 		return err
