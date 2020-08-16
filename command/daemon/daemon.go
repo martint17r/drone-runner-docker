@@ -211,6 +211,7 @@ func (c *daemonCommand) run(*kingpin.ParseContext) error {
 
 	// Ping the server and block until a successful connection
 	// to the server has been established.
+	logrus.Debugln("pinging daemon with: %#v", ctx)
 	for {
 		err := cli.Ping(ctx, config.Runner.Name)
 		select {
