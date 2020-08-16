@@ -2,7 +2,7 @@ module github.com/drone-runners/drone-runner-docker
 
 go 1.12
 
-replace github.com/docker/docker => github.com/docker/engine v17.12.0-ce-rc1.0.20200309214505-aa6a9891b09c+incompatible
+replace github.com/docker/docker => github.com/docker/engine v0.0.0-20190822180741-9552f2b2fdde
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78 // indirect

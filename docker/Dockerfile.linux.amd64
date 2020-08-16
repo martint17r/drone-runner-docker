@@ -1,3 +1,10 @@
+FROM golang:1.15 as builder
+WORKDIR /go/github.com/drone-runners/drone-runner-docker
+COPY . .
+ENV GOOS=linux
+ENV GOARCH=arm64
+RUN go build -o /go/bin/drone-runner-docker
+
 FROM alpine:3.6 as alpine
 RUN apk add -U --no-cache ca-certificates
 
@@ -12,5 +19,5 @@ COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 LABEL com.centurylinklabs.watchtower.stop-signal="SIGINT"
 
-ADD release/linux/amd64/drone-runner-docker /bin/
+COPY --from=builder /go/bin/drone-runner-docker /bin/
 ENTRYPOINT ["/bin/drone-runner-docker"]
